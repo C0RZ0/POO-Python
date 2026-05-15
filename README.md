@@ -1,5 +1,8 @@
 # Instrucciones para estudiantes
 
+## Instalacion
+Se instala el entorno por medio del comando "python3 -m venv .venv"
+
 ## Objetivo de la práctica
 
 Vas a construir un ejemplo pequeño pero completo de programación orientada a objetos en Python. Primero prepararás un entorno virtual, luego crearás clases simples y finalmente implementarás el patrón Observer.
@@ -163,5 +166,3 @@ Al terminar las misiones, se creará un issue final de calificación. Ejecuta ma
 ## Autores
 
 - Reemplaza esta línea con tu nombre, grupo, curso o rol.
-
-#Prueba de edicion

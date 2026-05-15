@@ -1,5 +1,5 @@
 class CanalNoticias:
-    def __init__(self):
+    def __init__(self, nombre):
         self.nombre = nombre
         self.observadores = []
         self.ultimo_mensaje = None

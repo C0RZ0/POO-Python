@@ -1,8 +1,5 @@
 # Instrucciones para estudiantes
 
-## Instalacion
-Se instala el entorno por medio del comando "python3 -m venv .venv"
-
 ## Objetivo de la práctica
 
 Vas a construir un ejemplo pequeño pero completo de programación orientada a objetos en Python. Primero prepararás un entorno virtual, luego crearás clases simples y finalmente implementarás el patrón Observer.
@@ -27,9 +24,9 @@ El workflow **Iniciar práctica** también puede ejecutarse con el primer `push`
 Primero clona tu copia del repositorio y entra a la carpeta del proyecto:
 
 ```bash
-git clone https://github.com/TU_USUARIO/NOMBRE_DEL_REPOSITORIO.git
-cd NOMBRE_DEL_REPOSITORIO
-git status
+python3 -m venv .venv
+.venv\Scripts\activate
+pip install -r requirements.txt
 ```
 
 Después de clonar el repositorio, completa esta sección durante la primera misión con los comandos para crear, activar y preparar el entorno virtual.

@@ -1,39 +1,47 @@
-# Instrucciones para estudiantes
+# Guía para estudiantes
 
-## Objetivo de la práctica
+## ¿De qué trata esta práctica?
 
-Vas a construir un ejemplo pequeño pero completo de programación orientada a objetos en Python. Primero prepararás un entorno virtual, luego crearás clases simples y finalmente implementarás el patrón Observer.
+En esta práctica vas a crear un ejemplo sencillo de Python con objetos que se comunican entre sí. La idea es aprender cómo una parte del programa puede avisar a otras cuando ocurre algo importante.
 
-La práctica se guía con issues progresivos en GitHub. Cuando completes una misión, el workflow **Validar progreso de misiones** revisará los criterios verificables, comentará el resultado y creará la siguiente misión.
+También vas a practicar cómo trabajar con un entorno virtual, cómo ejecutar la aplicación y cómo correr las pruebas automáticas.
 
-No cierres los issues manualmente. El cierre lo hace el workflow cuando la misión cumple los criterios.
+## Antes de empezar
+
+La actividad se organiza con issues en GitHub. Cuando termines una parte, el sistema revisará tu avance y creará la siguiente misión.
+
+No cierres los issues manualmente. Ese cierre lo hace el flujo automático cuando todo está correcto.
 
 ## Iniciar la práctica en GitHub
 
-Después de crear tu copia del repositorio, inicia las misiones una sola vez:
+Después de tener tu copia del repositorio, haz esto una sola vez:
 
 1. Entra a la pestaña **Actions**.
-2. Selecciona **Iniciar práctica**.
+2. Elige **Iniciar práctica**.
 3. Haz clic en **Run workflow**.
-4. Revisa la pestaña **Issues**.
+4. Revisa la pestaña **Issues** para ver la primera misión.
 
-El workflow **Iniciar práctica** también puede ejecutarse con el primer `push` a `main`. Después de crear la primera misión, el mismo workflow elimina su archivo para no volver a ejecutarse en futuros cambios.
+## Crear y activar el entorno virtual
 
-## Crear el entorno virtual
+Abre una terminal dentro de la carpeta del proyecto y ejecuta:
 
-Primero clona tu copia del repositorio y entra a la carpeta del proyecto:
-
-```bash
-python3 -m venv .venv
-.venv\Scripts\activate
+```powershell
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
 pip install -r requirements.txt
 ```
 
-Después de clonar el repositorio, completa esta sección durante la primera misión con los comandos para crear, activar y preparar el entorno virtual.
+Si PowerShell no te deja activar el entorno, ejecuta primero:
 
-## Estructura esperada
+```powershell
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+```
 
-Durante la práctica crearás esta estructura:
+Después vuelve a ejecutar la línea de activación.
+
+## Estructura del proyecto
+
+Durante la práctica vas a trabajar con esta organización:
 
 ```text
 src/
@@ -47,119 +55,76 @@ tests/
   test_observer.py
 ```
 
-## Crear clases en Python
+## Las clases principales
 
-Una clase define un tipo de objeto. En esta práctica crearás suscriptores con estado interno:
+### `CanalNoticias`
 
-```python
-class SuscriptorEmail:
-    def __init__(self, nombre):
-        self.nombre = nombre
-        self.canal = "email"
-        self.mensajes = []
+Esta clase representa el canal de noticias. Su trabajo es guardar el nombre del canal, permitir que otras personas se suscriban, eliminar suscripciones y avisar cuando hay un nuevo mensaje.
 
-    def actualizar(self, mensaje):
-        self.mensajes.append(mensaje)
+En palabras simples: es el que publica la noticia y se la envía a todos los que están atentos.
 
-    def __str__(self):
-        return f"{self.nombre} por {self.canal}"
-```
+### `SuscriptorEmail`
 
-Observa tres ideas:
+Esta clase representa a una persona que recibe noticias por correo electrónico. Guarda su nombre, el tipo de canal que usa y una lista con los mensajes que ha recibido.
 
-- `__init__` inicializa atributos del objeto.
-- `self` representa el objeto actual.
-- los métodos pueden leer o modificar atributos.
+### `SuscriptorSMS`
 
-Más adelante crearás también `SuscriptorSMS` y `CanalNoticias`.
+Esta clase representa a una persona que recibe noticias por mensaje de texto. Su funcionamiento es muy parecido al del suscriptor por correo, pero identifica su canal como SMS.
 
 ## Implementar Observer paso a paso
 
-El patrón Observer separa un objeto que cambia, llamado sujeto observable, de los objetos que reaccionan al cambio, llamados observadores.
+El patrón Observer se puede entender así: hay un canal que avisa y varias personas que escuchan.
 
 En este proyecto:
 
-- `CanalNoticias` es el sujeto observable.
-- `SuscriptorEmail` y `SuscriptorSMS` son observadores.
-- `suscribir` agrega observadores.
-- `desuscribir` elimina observadores.
-- `notificar` llama `actualizar(mensaje)` en cada observador.
-- `publicar` guarda el último mensaje y notifica a todos.
+- `CanalNoticias` es el sujeto. Es quien cambia y quien avisa.
+- `SuscriptorEmail` y `SuscriptorSMS` son los observadores. Son quienes reciben el aviso.
 
-Una posible forma de organizarlo:
+Cada parte cumple una función simple:
 
-```python
-class CanalNoticias:
-    def __init__(self, nombre):
-        self.nombre = nombre
-        self.observadores = []
-        self.ultimo_mensaje = None
+- `suscribir` agrega un observador al canal.
+- `desuscribir` quita un observador del canal.
+- `notificar` envía el mensaje a todos los observadores.
+- `publicar` guarda el último mensaje y luego lo comparte.
 
-    def suscribir(self, observador):
-        if observador not in self.observadores:
-            self.observadores.append(observador)
+La idea es que, cuando el canal publique algo nuevo, todos los suscriptores que siguen conectados reciban ese mensaje en su lista.
 
-    def desuscribir(self, observador):
-        if observador in self.observadores:
-            self.observadores.remove(observador)
+## Ejecutar la demostración
 
-    def notificar(self, mensaje):
-        for observador in self.observadores:
-            observador.actualizar(mensaje)
+Cuando quieras probar la aplicación, ejecuta desde la raíz del proyecto:
 
-    def publicar(self, mensaje):
-        self.ultimo_mensaje = mensaje
-        self.notificar(mensaje)
-```
-
-Puedes usar una clase base abstracta o un `Protocol` para expresar que todo observador debe tener un método `actualizar`.
-
-## Ejecutar la demo
-
-Cuando tengas las clases listas, crea `src/main.py` para demostrar el flujo:
-
-```python
-from observer_practice.canal import CanalNoticias
-from observer_practice.suscriptores import SuscriptorEmail, SuscriptorSMS
-
-
-def main():
-    canal = CanalNoticias("Python al día")
-    ana = SuscriptorEmail("Ana")
-    luis = SuscriptorSMS("Luis")
-
-    canal.suscribir(ana)
-    canal.suscribir(luis)
-    canal.publicar("Nueva clase sobre patrones de diseño")
-
-    print(ana.mensajes)
-    print(luis.mensajes)
-
-
-if __name__ == "__main__":
-    main()
-```
-
-Ejecuta:
-
-```bash
+```powershell
 python src/main.py
 ```
 
-## Ejecutar pruebas
+Ese comando muestra una demostración donde se crea un canal, se agregan suscriptores y se imprime lo que recibió cada uno.
 
-Las pruebas ya describen el comportamiento esperado:
+## Ejecutar las pruebas
 
-```bash
+Para comprobar que todo funciona como debe, ejecuta:
+
+```powershell
 python -m pytest
 ```
 
-Si una prueba falla, lee el mensaje de error y ajusta las clases. La meta es que los suscriptores reciban mensajes, que no se dupliquen suscripciones y que `desuscribir` detenga nuevas notificaciones.
+Si una prueba falla, lee el mensaje que aparece en la terminal. Ese mensaje te dice qué comportamiento no se está cumpliendo y en qué parte debes corregirlo.
+
+## Qué debe pasar al final
+
+Al terminar, deberías poder ver que:
+
+- los suscriptores guardan los mensajes que reciben,
+- el canal avisa a todos los suscriptores activos,
+- si alguien se desuscribe, deja de recibir mensajes nuevos,
+- no se repiten suscriptores iguales,
+- las pruebas automáticas pasan sin errores.
 
 ## Ver la calificación
 
-Al terminar las misiones, se creará un issue final de calificación. Ejecuta manualmente el workflow **Validar progreso de misiones** si quieres actualizar la revisión. El comentario del issue mostrará una calificación automática sobre 100.
+Cuando completes las misiones, se creará un issue final de calificación. Si quieres actualizar la revisión, puedes ejecutar manualmente el workflow **Validar progreso de misiones**.
 
-## Autores
+## Autor
 
-- Reemplaza esta línea con tu nombre, grupo, curso o rol.
+Matthew Habib Corzo Torres
+
+matthew.corzo@estudiantesunibague.edu.co

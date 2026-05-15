@@ -65,7 +65,16 @@ En palabras simples: es el que publica la noticia y se la envía a todos los que
 
 ### `SuscriptorEmail`
 
-Esta clase representa a una persona que recibe noticias por correo electrónico. Guarda su nombre, el tipo de canal que usa y una lista con los mensajes que ha recibido.
+Esta clase representa a una persona que recibe noticias por correo electrónico.
+
+En palabras simples:
+
+- guarda el nombre del suscriptor;
+- indica que su medio de recepción es el correo electrónico;
+- almacena en una lista todos los mensajes que recibe;
+- responde al aviso del canal agregando el mensaje a esa lista.
+
+Es útil porque permite ver qué mensajes recibió cada persona sin mezclar esa información con la del canal.
 
 ### `SuscriptorSMS`
 
@@ -91,19 +100,19 @@ La idea es que, cuando el canal publique algo nuevo, todos los suscriptores que 
 
 ## Ejecutar la demostración
 
-Cuando quieras probar la aplicación, ejecuta desde la raíz del proyecto:
+Cuando se necesite probar la aplicacion, se ejecuta desde la raiz del proyecto:
 
-```powershell
+```bash
 python src/main.py
 ```
 
-Ese comando muestra una demostración donde se crea un canal, se agregan suscriptores y se imprime lo que recibió cada uno.
+Ese comando muestra una demostracion donde se crea un canal, se agregan suscriptores y se imprime lo que recibió cada uno.
 
 ## Ejecutar las pruebas
 
 Para comprobar que todo funciona como debe, ejecuta:
 
-```powershell
+```bash
 python -m pytest
 ```
 
@@ -123,8 +132,6 @@ Al terminar, deberías poder ver que:
 
 Cuando completes las misiones, se creará un issue final de calificación. Si quieres actualizar la revisión, puedes ejecutar manualmente el workflow **Validar progreso de misiones**.
 
-## Autor
+## Autores
 
 Matthew Habib Corzo Torres
-
-matthew.corzo@estudiantesunibague.edu.co

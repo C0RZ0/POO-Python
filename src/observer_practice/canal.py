@@ -5,7 +5,7 @@ class CanalNoticias:
         self.ultimo_mensaje = None
 
     def suscribir(self, observador):
-        if observador not in self.observadores
+        if observador not in self.observadores:
             self.observadores.append(observador)
 
     def desuscribir(self, observador):

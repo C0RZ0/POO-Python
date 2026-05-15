@@ -1,6 +1,6 @@
-# Guía para estudiantes
+# Instrucciones para Estudiantes
 
-## ¿De qué trata esta práctica?
+## Objetivo de la practica
 
 En esta práctica vas a crear un ejemplo sencillo de Python con objetos que se comunican entre sí. La idea es aprender cómo una parte del programa puede avisar a otras cuando ocurre algo importante.
 
@@ -21,7 +21,7 @@ Después de tener tu copia del repositorio, haz esto una sola vez:
 3. Haz clic en **Run workflow**.
 4. Revisa la pestaña **Issues** para ver la primera misión.
 
-## Crear y activar el entorno virtual
+## Crear el entorno virtual
 
 Abre una terminal dentro de la carpeta del proyecto y ejecuta:
 
@@ -39,7 +39,7 @@ Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 
 Después vuelve a ejecutar la línea de activación.
 
-## Estructura del proyecto
+## Estructura esperada
 
 Durante la práctica vas a trabajar con esta organización:
 
@@ -55,7 +55,7 @@ tests/
   test_observer.py
 ```
 
-## Las clases principales
+## Crear clases en Python
 
 ### `CanalNoticias`
 
@@ -98,7 +98,7 @@ Cada parte cumple una función simple:
 
 La idea es que, cuando el canal publique algo nuevo, todos los suscriptores que siguen conectados reciban ese mensaje en su lista.
 
-## Ejecutar la demostración
+## Ejecutar la demo
 
 Cuando se necesite probar la aplicacion, se ejecuta desde la raiz del proyecto:
 
@@ -108,7 +108,7 @@ python src/main.py
 
 Ese comando muestra una demostracion donde se crea un canal, se agregan suscriptores y se imprime lo que recibió cada uno.
 
-## Ejecutar las pruebas
+## Ejecutar pruebas
 
 Para comprobar que todo funciona como debe, ejecuta:
 

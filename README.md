@@ -134,4 +134,4 @@ Cuando completes las misiones, se creará un issue final de calificación. Si qu
 
 ## Autores
 
-Matthew Habib Corzo Torres
+Matthew Habib Corzo Torres.
